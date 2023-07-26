@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Preguntas</title>
+    <!-- Agregar los enlaces a Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div id="inicioContainer">
+            <h3>¡Bienvenido al Cuestionario!</h3>
+            <p>Ingresa tu nombre:</p>
+            <input type="text" id="nombreUsuario" class="form-control mb-3" />
+            <button class="btn btn-primary" onclick="mostrarVistaPrevia()">Comenzar</button>
+        </div>
+        <div id="vistaPreviaContainer" style="display: none;">
+            <h3>Vista Previa</h3>
+            <p>Selecciona el tipo de prueba:</p>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="iniciarCuestionario(0)">Prueba 1</button>
+                <button class="btn btn-secondary" onclick="iniciarCuestionario(1)">Prueba 2</button>
+            </div>
+        </div>
+        <div id="preguntaContainer" style="display: none;">
+            <h3 id="categoria"></h3>
+            <p id="enunciado"></p>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="preguntaAnterior()">Anterior</button>
+                <button class="btn btn-secondary" onclick="responderPregunta(0)">No</button>
+                <button class="btn btn-secondary" onclick="responderPregunta(1)">Sí</button>
+                <button class="btn btn-secondary" onclick="preguntaSiguiente()">Siguiente</button>
+            </div>
+            <p id="progreso"></p>
+        </div>
+        <div id="resultadosContainer" style="display: none;">
+            <h3>Resultados</h3>
+            <p id="resultadoAreaInteres"></p>
+            <p id="textoAdicional"></p>
+        </div>
+    </div>
+
+    <!-- Agregar el script de Bootstrap y nuestro script personalizado -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Arreglo con las categorías y preguntas por categoría y área de interés para cada tipo de prueba
+        const tipoDePrueba1 = [
+            // Estructura de datos similar a los ejemplos anteriores
+            {
+                nombre: "Matemáticas",
+                areas: [
+                    {
+                        nombre: "Álgebra",
+                        preguntas: [
+                            {
+                                id: 1,
+                                enunciado: "¿2 + 2 = 4?"
+                            },
+                            {
+                                id: 2,
+                                enunciado: "¿3 x 3 = 9?"
+                            },
+                            // Agregar más preguntas de Álgebra aquí
+                        ]
+                    },
+                    {
+                        nombre: "Geometría",
+                        preguntas: [
+                            {
+                                id: 3,
+                                enunciado: "¿Un triángulo tiene 3 lados?"
+                            },
+                            {
+                                id: 4,
+                                enunciado: "¿Un cuadrado tiene 4 vértices?"
+                            },
+                            // Agregar más preguntas de Geometría aquí
+                        ]
+                    }
+                ]
+            },
+            {
+                nombre: "Ciencias",
+                areas: [
+                    {
+                        nombre: "Biología",
+                        preguntas: [
+                            {
+                                id: 5,
+                                enunciado: "¿Los seres vivos necesitan agua para sobrevivir?"
+                            },
+                            {
+                                id: 6,
+                                enunciado: "¿Las plantas realizan la fotosíntesis?"
+                            },
+                            // Agregar más preguntas de Biología aquí
+                        ]
+                    },
+                    {
+                        nombre: "Física",
+                        preguntas: [
+                            {
+                                id: 7,
+                                enunciado: "¿La gravedad es una fuerza atractiva?"
+                            },
+                            {
+                                id: 8,
+                                enunciado: "¿El sonido se propaga a través de ondas?"
+                            },
+                            // Agregar más preguntas de Física aquí
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        const tipoDePrueba2 = [
+            // Estructura de datos similar a los ejemplos anteriores, con preguntas diferentes
+        ];
+
+        let usuario = "";
+        let tipoPruebaActual = -1;
+        let categoriaActual = 0;
+        let areaInteresActual = 0;
+        let preguntasActuales = [];
+        let puntajesAreas = {}; // Objeto para almacenar los puntajes por área de interés
+
+        // Función para mostrar la vista previa y seleccionar el tipo de prueba
+        function mostrarVistaPrevia() {
+            usuario = document.getElementById("nombreUsuario").value;
+            document.getElementById("inicioContainer").style.display = "none";
+            document.getElementById("vistaPreviaContainer").style.display = "block";
+        }
+
+        // Función para iniciar el cuestionario con el tipo de prueba seleccionado
+        function iniciarCuestionario(tipoPrueba) {
+            tipoPruebaActual = tipoPrueba;
+            document.getElementById("vistaPreviaContainer").style.display = "none";
+            preguntasActuales = tipoPrueba === 0 ? tipoDePrueba1 : tipoDePrueba2;
+            mostrarPregunta();
+        }
+
+        // Función para mostrar la pregunta actual en la pantalla
+        function mostrarPregunta() {
+      const categoria = preguntasActuales[categoriaActual];
+      const areaInteres = categoria.areas[areaInteresActual];
+      const pregunta = areaInteres.preguntas[0];
+
+      document.getElementById("preguntaContainer").style.display = "block";
+      document.getElementById("categoria").textContent = `Categoría: ${categoria.nombre} - Área de Interés: ${areaInteres.nombre}`;
+      document.getElementById("enunciado").textContent = pregunta.enunciado;
+      document.getElementById("progreso").textContent = `Pregunta ${preguntaActual + 1}/${totalPreguntas}`;
+    }
+
+    // Función para avanzar a la siguiente pregunta
+    function preguntaSiguiente() {
+      if (preguntaActual < totalPreguntas - 1) {
+        preguntaActual++;
+        mostrarPregunta();
+      }
+    }
+
+    // Función para regresar a la pregunta anterior
+    function preguntaAnterior() {
+      if (preguntaActual > 0) {
+        preguntaActual--;
+        mostrarPregunta();
+      }
+    }
+
+        // Función para responder la pregunta y avanzar a la siguiente
+        function responderPregunta(respuesta) {
+            const categoria = preguntasActuales[categoriaActual];
+            const areaInteres = categoria.areas[areaInteresActual];
+            const pregunta = areaInteres.preguntas[0];
+
+            if (!puntajesAreas[areaInteres.nombre]) puntajesAreas[areaInteres.nombre] = 0;
+            if (respuesta === 1) {
+                // Respuesta Sí
+                puntajesAreas[areaInteres.nombre]++;
+            }
+
+            areaInteres.preguntas.shift(); // Eliminar la pregunta actual
+
+            if (areaInteres.preguntas.length > 0) {
+                // Quedan preguntas en el área de interés actual
+                mostrarPregunta();
+            } else {
+                // Avanzar a la siguiente área de interés o categoría
+                areaInteresActual++;
+                if (areaInteresActual < categoria.areas.length) {
+                    mostrarPregunta();
+                } else {
+                    areaInteresActual = 0;
+                    categoriaActual++;
+                    if (categoriaActual < preguntasActuales.length) {
+                        mostrarPregunta();
+                    } else {
+                        // Ya se respondieron todas las preguntas
+                        mostrarResultado();
+                    }
+                }
+            }
+        }
+
+        // Función para mostrar los resultados
+        function mostrarResultado() {
+            document.getElementById("preguntaContainer").style.display = "none";
+            document.getElementById("resultadosContainer").style.display = "block";
+
+            // Encontrar el área de interés con el puntaje más alto
+            let areaMasAlta = "";
+            let puntajeMasAlto = 0;
+
+            for (const areaInteres in puntajesAreas) {
+                if (puntajesAreas[areaInteres] > puntajeMasAlto) {
+                    puntajeMasAlto = puntajesAreas[areaInteres];
+                    areaMasAlta = areaInteres;
+                }
+            }
+
+            // Mostrar el resultado del área de interés más alta
+            document.getElementById("resultadoAreaInteres").textContent = `El área de interés con mayor puntaje es: ${areaMasAlta}`;
+
+            // Mostrar texto adicional específico según el área de interés
+            let textoAdicional = "";
+            switch (areaMasAlta) {
+                case "Álgebra":
+                    textoAdicional = "Texto para el área de Álgebra.";
+                    break;
+                case "Geometría":
+                    textoAdicional = "Texto para el área de Geometría.";
+                    break;
+                case "Biología":
+                    textoAdicional = "Texto para el área de Biología.";
+                    break;
+                case "Física":
+                    textoAdicional = "Texto para el área de Física.";
+                    break;
+                // Agregar más casos según las áreas de interés
+                default:
+                    textoAdicional = "No hay texto adicional para esta área.";
+            }
+
+            // Mostrar el nombre del usuario, el tipo de prueba y el texto adicional según el área de interés más alta
+            let tipoPruebaTexto = tipoPruebaActual === 0 ? "Prueba 1" : "Prueba 2";
+            document.getElementById("textoAdicional").textContent = `${usuario}, has realizado la ${tipoPruebaTexto}. ${textoAdicional}`;
+        }
+
+    // Comenzar el cuestionario al cargar la página
+    // No es necesario mostrarPregunta() aquí, ya que se mostrará cuando el usuario seleccione el tipo de prueba
+    </script>
+</body>
+
+</html>
