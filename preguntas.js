@@ -1,7 +1,40 @@
 
 const tipoDePrueba1 = [
+// const bancoDePreguntas = [
     // Estructura de datos similar a los ejemplos anteriores
-    {
+    // {
+    //     id: 1,
+    //     enunciado: "¿Cuál es la capital de Francia?",
+    //     area_interes: "C",
+    //     aptitud: "no",
+    //   },
+    //   {
+    //     id: 2,
+    //     enunciado: "¿Quién escribió 'Cien años de soledad'?",
+    //     area_interes: "H",
+    //     aptitud: "no",
+    //   },
+    //   {
+    //     id: 3,
+    //     enunciado: "¿Cuál es el resultado de 2 + 2?",
+    //     area_interes: "A",
+    //     aptitud: "si",
+    //   },
+    //   {
+    //     id: 4,
+    //     enunciado: "¿En qué año llegó el hombre a la Luna?",
+    //     area_interes: "C",
+    //     aptitud: "no",
+    //   },
+    //   {
+    //     id: 5,
+    //     enunciado: "¿Qué instrumento mide la temperatura?",
+    //     area_interes: "S",
+    //     aptitud: "no",
+    //   },
+
+
+        {
         nombre: "Intereses",
         areas: [
             {
@@ -182,4 +215,4 @@ const tipoDePrueba1 = [
             }
         ]
     }
-];
+ ];

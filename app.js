@@ -12,9 +12,6 @@
         let preguntasActuales = [];
         let puntajesAreas = {}; // Objeto para almacenar los puntajes por área de interés
 
-        function regresarAlInicio() {
-            location.reload(); // Recargar la página para volver al inicio
-        }
 
         // Función para mostrar la vista previa y seleccionar el tipo de prueba
         function mostrarVistaPrevia() {
