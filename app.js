@@ -113,8 +113,6 @@
                     }
                 }
 
-                
-
                 // Habilitar los botones de respuesta para la siguiente pregunta
                 const btnRespuestaNo = document.getElementById("btnRespuestaNo");
                 const btnRespuestaSi = document.getElementById("btnRespuestaSi");

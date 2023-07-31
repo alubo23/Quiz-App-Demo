@@ -11,36 +11,72 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-        <a class="navbar-brand text-center" href="#" onclick="regresarAlInicio()">Quizz App - Vocational Testing</a>
+    <nav class="navbar navbar-expand-md bg-info text-white">
+        <a class="navbar-brand text-white mx-auto" href="#" onclick="regresarAlInicio()"> <strong>Quizz App</strong></a>
+        <!-- <label class="navbar-brand mx-auto" href="#" onclick="regresarAlInicio()"> Quizz App - Vocational Testing
+        </label> -->
     </nav>
 
     <div class="container mt-5">
         <!-- Vista inicial para ingresar el nombre -->
+
         <div id="inicio">
-            <div class="form-group">
-                <label for="nombre">Ingresa tu nombre:</label>
-                <input type="text" class="form-control" id="nombre">
+
+            <h1 class="text-center p-4">¡Bienvenido a Quizz App!</h1>
+
+            <div class="card align-middle mx-auto bg-light border-dark" style="width: 700px;">
+
+                <div class="form-group pt-3 px-3">
+                    <label for="nombre">Ingresa tu nombre:</label>
+                    <input type="text" class="form-control border-dark" id="nombre">
+                </div>
+                <div class="d-flex justify-content-end pr-3 pb-3">
+                    <button class="btn btn-info" onclick="mostrarPruebas()">Quizz App</button>
+                </div>
+
             </div>
-            <button class="btn btn-primary" onclick="mostrarPruebas()">Comenzar</button>
         </div>
 
         <!-- Vista para seleccionar una prueba -->
         <div id="pruebas" style="display: none;">
-            <h3>Selecciona una prueba:</h3>
-            <div class="card mb-2">
-                <div class="card-body">
-                    <h5 class="card-title">Prueba Vocacional</h5>
-                    <p class="card-text">Esta es una prueba que consta de 98 preguntas, sin límite de tiempo...</p>
-                    <button class="btn btn-primary" onclick="comenzarPrueba(0)">Comenzar</button>
+            <h3 class="pb-3">Selecciona una prueba:</h3>
+            <div class="row p-2 justify-content-between">
+                <div class="card mb-3 border-dark" style="max-width: 20rem;">
+                    <div class="card-header border-info bg-info text-white"> <strong>Prueba Vocacional</strong></div>
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">Prueba Vocacional</h5> -->
+                        <p class="card-text">Esta es una prueba que consta de 98 preguntas, sin límite de tiempo...</p>
+                        <div class="d-md-flex justify-content-end">
+                            <button class="btn btn-info"
+                                onclick="comenzarPrueba(0)">Comenzar</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="card mb-2">
-                <div class="card-body">
-                    <h5 class="card-title">Prueba 2</h5>
-                    <p class="card-text">Descripción de la Prueba 2</p>
-                    <button class="btn btn-primary" disabled onclick="comenzarPrueba(1)">Comenzar</button>
+                <div class="card mb-3 border-dark" style="max-width: 20rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Prueba 2</h5>
+                        <p class="card-text text-center">Esta prueba aún no está disponible. Muy pronto...</p>
+                        <div class="d-md-flex justify-content-end">
+                            <button class="btn btn-danger" disabled
+                                onclick="comenzarPrueba(1)">Comenzar</button>
+                        </div>
+                    </div>
                 </div>
+                <div class="card mb-3 border-dark" style="max-width: 20rem;">
+
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Prueba 3</h5>
+                        <p class="card-text text-center">Esta prueba aún no está disponible. Muy pronto...</p>
+                        <div class="d-md-flex justify-content-end">
+                            <button class="btn text-white" style="background-color: #990099;" disabled
+                                onclick="comenzarPrueba(2)">Comenzar</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
             </div>
             <!-- Agregar más pruebas aquí... -->
         </div>
@@ -49,44 +85,56 @@
         <div id="prueba" style="display: none;">
             <div class="card">
                 <div class="card-body">
+                    <h4 id="enunciado1"></h4>
                     <h5 class="card-title" id="enunciado"></h5>
-                    <div class="btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-success">
-                            <input type="radio" name="respuesta" value="1" autocomplete="off"> Si
-                        </label>
-                        <label class="btn btn-danger">
-                            <input type="radio" name="respuesta" value="0" autocomplete="off"> No
-                        </label>
+
+                    <div class="pt-2 pb-4">
+                        <div class="form-check py-1">
+                            <input class="form-check-input" type="radio" name="respuesta" id="answer_si" value="1">
+                            <label class="form-check-label" for="answer_si">Si</label>
+                        </div>
+                        <div class="form-check py-1">
+                            <input class="form-check-input" type="radio" name="respuesta" id="answer_no" value="0">
+                            <label class="form-check-label" for="answer_no">No</label>
+                        </div>
                     </div>
-                    <button class="btn btn-secondary" onclick="anteriorPregunta()" id="btnAnterior"
-                        disabled>Anterior</button>
-                    <button class="btn btn-primary" onclick="siguientePregunta()" id="btnSiguiente">Siguiente</button>
+
+                    <div class="">
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-info" onclick="anteriorPregunta()" id="btnAnterior" disabled>
+                                Anterior
+                            </button>
+                            <!-- Agregar barra de progreso -->
+                            <button class="btn btn-info" onclick="siguientePregunta()" id="btnSiguiente">
+                                Siguiente
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  Default radio
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  Default radio
-                </label>
-              </div>
         </div>
 
-        
+
 
         <!-- Vista de resultados -->
-        <div id="resultados" style="display: none;">
-            <h3>Resultados:</h3>
-            <p>Nombre: <span id="nombreResultado"></span></p>
-            <p>Área de interés con mayor puntaje: <span id="areaInteresMayor"></span></p>
-            <p>Área de interés con mayor puntaje y aptitudes: <span id="areaInteresAptitudes"></span></p>
-            <p>Texto específico en función del área de interés y aptitudes: <span id="textoEspecifico"></span></p>
-            <button class="btn btn-primary" onclick="regresar()">Regresar</button>
+        <div id="resultados" class="card" style="display: none;">
+            <div class="card-body">
+                <h3>Resultados:</h3>
+                <p>Nombre: <span id="nombreResultado"></span></p>
+                <p>Área de interés con mayor puntaje: <span id="areaInteresMayor"></span></p>
+                <p>Área de interés con mayor puntaje y aptitudes: <span id="areaInteresAptitudes"></span></p>
+                <p>Texto específico en función del área de interés y aptitudes: <span id="textoEspecifico"></span></p>
+                <button class="btn btn-info" onclick="regresar()">Regresar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-dark text-center text-white" style="bottom: 0; position: absolute; width: 100%;">
+        <div class="text-center " style="background-color: #990099;">
+            <small>© 2020 Copyright:</small>
+            <a class="text-white text-decoration-none" href="http://grupokreativo.com.co/" target="_blank"> <small>Grupo
+                    Kreativo</small></a>
         </div>
     </div>
 
@@ -176,6 +224,8 @@
         function mostrarPregunta() {
             pruebas.sort((a, b) => a.id - b.id)
             const pregunta = pruebas[pruebaActual].preguntas[preguntaActual];
+            // const preguntaId = pruebas[IdActual];
+            document.getElementById("enunciado1").textContent = `Pregunta ${pregunta.id}`;
             document.getElementById("enunciado").textContent = pregunta.enunciado;
             document.getElementById("btnAnterior").disabled = preguntaActual === 0;
             document.getElementById("btnSiguiente").textContent = preguntaActual === pruebas[pruebaActual].preguntas.length - 1 ? "Finalizar" : "Siguiente";
