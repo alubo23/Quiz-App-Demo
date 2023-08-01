@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Vocational Testing</title>
+    <!-- Agregar los enlaces a Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <a class="navbar-brand text-center" href="#" onclick="regresarAlInicio()">Quizz App - Vocational Testing</a>
+    </nav>
+
+    <div class="container mt-5">
+        <div id="inicioContainer">
+            <h2>¡Bienvenido!</h2>
+            <p>Ingresa tu nombre:</p>
+            <input type="text" id="nombreUsuario" class="form-control mb-3" />
+            <button class="btn btn-primary" onclick="mostrarVistaPrevia()">Comenzar</button>
+        </div>
+        <div id="vistaPreviaContainer" style="display: none;">
+            <h3>Vista Previa</h3>
+            <p>Selecciona el tipo de prueba:</p>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="iniciarCuestionario(0)">Prueba 1</button>
+                <button class="btn btn-secondary" onclick="iniciarCuestionario(1)">Prueba 2</button>
+            </div>
+        </div>
+        <div id="preguntaContainer" style="display: none;">
+            <h3 id="categoria"></h3>
+            <p id="enunciado"></p>
+            <div class="btn">
+                <button class="btn btn-secondary" onclick="preguntaAnterior()">Anterior</button>
+                <button class="btn btn-secondary" onclick="validarRespuesta(0)">No</button>
+                <button class="btn btn-secondary" onclick="validarRespuesta(1)">Sí</button>
+                <button class="btn btn-secondary" onclick="preguntaSiguiente()">Siguiente</button>
+            </div>
+            <a id="progreso"></a>
+        </div>
+        <div id="resultadosContainer" style="display: none;">
+            <h3>Resultados</h3>
+            <p id="resultadoAreaInteres"></p>
+            <p id="textoAdicional"></p>
+            <button class="btn btn-primary" onclick="regresarASeleccionarPruebas()">Regresar</button>
+        </div>
+    </div>
+
+    <!-- Agregar el script de Bootstrap y nuestro script personalizado -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Importar el banco de preguntas CHASIDE -->
+    <script src="./preguntas.js"></script>
+    <!-- Importar utilidades y funciones de la aplicación -->
+    <script src="./app.js"></script>
+</body>
+
+</html>

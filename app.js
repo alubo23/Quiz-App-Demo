@@ -1,9 +1,3 @@
-        // Arreglo con las categorías y preguntas por categoría y área de interés para cada tipo de prueba
-
-        const tipoDePrueba2 = [
-            // Estructura de datos similar a los ejemplos anteriores, con preguntas diferentes
-        ];
-
         let usuario = "";
         let tipoPruebaActual = -1;
         let categoriaActual = 0;
