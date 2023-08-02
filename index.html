@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba de Intereses</title>
+    <title>Quizz APp</title>
     <!-- Agregar los enlaces a Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -36,6 +36,13 @@
 
             </div>
         </div>
+
+        <!-- <div class="input-group mb-3">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+                <label for="floatingInputGroup1">Username</label>
+            </div>
+        </div> -->
 
         <!-- Vista para seleccionar una prueba -->
         <div id="pruebas" style="display: none;">
@@ -71,24 +78,37 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="card mb-3 border-dark" style="max-width: 20rem;">
-
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Prueba 3</h5>
-                        <p class="card-text text-center">Esta prueba aún no está disponible. Muy pronto...</p>
-                        <div class="d-md-flex justify-content-end">
-                            <button class="btn text-white" style="background-color: #990099;" disabled
-                                onclick="comenzarPrueba(2)">Comenzar</button>
-                        </div>
-                    </div>
-                </div> -->
-
-
-
-
             </div>
             <!-- Agregar más pruebas aquí... -->
         </div>
+
+        <!-- Modal de Instrucciones -->
+        <div class="modal fade" id="modalInstrucciones" tabindex="-1" role="dialog"
+            aria-labelledby="modalInstruccionesLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalInstruccionesLabel">Instrucciones de la Prueba</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Aquí van las instrucciones de la prueba.</p>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="validarCheck">
+                            <label class="form-check-label" for="validarCheck">He leído y entendido las
+                                instrucciones</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="iniciarPrueba()" id="btnIniciar"
+                            disabled>Iniciar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Vista de la prueba -->
         <div id="prueba" style="display: none;">
@@ -147,7 +167,7 @@
                 <p>Área de interés con mayor puntaje: <span id="areaInteresMayor"></span></p>
                 <p>Área de interés con mayor puntaje y aptitudes: <span id="areaInteresAptitudes"></span></p>
                 <p>Texto específico en función del área de interés y aptitudes: <span id="textoEspecifico"></span></p>
-                <button class="btn btn-info" onclick="regresar()">Regresar</button>
+                <button class="btn btn-info" onclick="regresarAlInicio()">Regresar</button>
             </div>
         </div>
     </div>
@@ -239,7 +259,7 @@
             pruebaActual = pruebaIndex;
             preguntaActual = 0;
             respuestas = [];
-            // let respuestasAlmacen = new Array(totalPreguntas).fill(null);
+            // mostrarModalInstrucciones();
             mostrarPregunta();
             document.getElementById("pruebas").style.display = "none";
             document.getElementById("prueba").style.display = "block";
@@ -260,15 +280,7 @@
             // Obtener la respuesta almacenada (si existe) y marcar el radio correspondiente
             const radioSi = document.getElementById("radioSi");
             const radioNo = document.getElementById("radioNo");
-            // if (respuestas[preguntaActualIndex] === 'Si') {
-            //     radioSi.checked = true;
-            //     radioNo.checked = false;
-            // } else if (respuestas[preguntaActualIndex] === 'No') {
-            //     radioSi.checked = false;
-            //     radioNo.checked = true;
-            // } else {
-            //     radioSi.checked = false;
-            //     radioNo.checked = false;
+            limpiarRespuestas();
         }
 
         function actualizarBarraProgreso() {
@@ -292,7 +304,7 @@
             }
 
             if (respuesta === undefined) {
-                alert("Selecciona una opción de respuesta antes de continuar.");
+                // alert("Selecciona una opción de respuesta antes de continuar.");
                 return;
             }
 
@@ -302,25 +314,6 @@
             btnSiguiente.disabled = !todasRespondidas;
         }
 
-        // function responder(respuesta) {
-        //     const siBtn = document.querySelector(".btn-success");
-        //     const noBtn = document.querySelector(".btn-danger");
-        //     siBtn.classList.remove("active");
-        //     noBtn.classList.remove("active");
-
-        //     if (respuesta === 1) {
-        //         siBtn.classList.add("active");
-        //     } else {
-        //         noBtn.classList.add("active");
-        //     }
-        //     respuestas[pregunta.id - 1] = respuesta;
-
-
-        //     const btnSiguiente = document.getElementById("btnSiguiente");
-        //     const todasRespondidas = respuestas.every(respuesta => respuesta !== undefined);
-        //     btnSiguiente.disabled = !todasRespondidas;
-        // }
-
         function anteriorPregunta() {
             preguntaActual--;
             mostrarPregunta();
@@ -328,31 +321,31 @@
         }
 
         function siguientePregunta() {
-            // if (!respuestas[preguntaActualIndex]) {
-            //     alert('Atención! Para continuar, por favor responda la pregunta.');
-            //     return;
-            // }
-
             responder();
 
-            // if (preguntaActual === pruebas[pruebaActual].preguntas.length - 1) {
-            //     if (respuestas.some(respuesta => respuesta === undefined)) {
-            //         alert("Completa todas las preguntas antes de continuar.");
-            //         return;
-            //     }
-
-                preguntaActual++;
-                preguntaActualIndex++;
-                if (preguntaActual === pruebas[pruebaActual].preguntas.length) {
-                    mostrarResultados();
-                    document.getElementById("prueba").style.display = "none";
-                    document.getElementById("resultados").style.display = "block";
-                } else {
-                    mostrarPregunta();
+            if (preguntaActual === pruebas[pruebaActual].preguntas.length - 1) {
+                if (respuestas.some(respuesta => respuesta === undefined)) {
+                    alert("Completa todas las preguntas antes de continuar.");
+                    return;
                 }
+                mostrarResultados();
+                document.getElementById("prueba").style.display = "none";
+                document.getElementById("resultados").style.display = "block";
+            } else {
+                if (respuestas[preguntaActual] === undefined) {
+                    alert("Debes seleccionar una opción de respuesta antes de continuar.");
+                    return;
+                }
+                preguntaActual++;
+                mostrarPregunta();
                 actualizarBarraProgreso();
             }
-        // }
+        }
+
+        function limpiarRespuestas() {
+            const radios = document.querySelectorAll('input[name="respuesta"]');
+            radios.forEach(radio => radio.checked = false);
+        }
 
         function mostrarResultados() {
             document.getElementById("nombreResultado").textContent = nombreUsuario;
@@ -401,7 +394,7 @@
         function regresar() {
             document.getElementById("nombre").value = "";
             document.getElementById("resultados").style.display = "none";
-            document.getElementById("pruebas").style.display = "block";
+            document.getElementById("inicio").style.display = "block";
         }
     </script>
 </body>
