@@ -1,4 +1,4 @@
-# Quiz-App-2
+# Quiz-App-Demo
 Aplicacion de pruebas con Javascript
 
 Vista incial - Funcionalidades
