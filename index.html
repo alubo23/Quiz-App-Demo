@@ -4,17 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizz APp</title>
+    <title>Quizz App - Demo</title>
 
     <!-- Agregar los enlaces a Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> -->
 
 </head>
 
 <body>
 
     <nav class="navbar navbar-expand-md bg-info text-white">
-        <a class="navbar-brand text-white mx-auto" href="#" onclick="regresarAlInicio()"> <strong>Quizz App</strong></a>
+        <a class="navbar-brand text-white mx-auto" href="#" onclick="regresarAlInicio()"> <strong>Quizz App Demo</strong></a>
         <!-- <label class="navbar-brand mx-auto" href="#" onclick="regresarAlInicio()"> Quizz App - Vocational Testing
         </label> -->
     </nav>
@@ -48,7 +50,8 @@
 
         <!-- Vista para seleccionar una prueba -->
         <div id="pruebas" style="display: none;">
-            <h3 class="pb-3">Selecciona una prueba:</h3>
+            <h3>Hola <span id="nombreUser"></span>,</h3>
+            <p class="pb-3">Selecciona la prueba que deseas realizar:</p>
             <div class="row p-2 justify-content-between">
                 <div class="card mb-3 border-dark shadow" style="max-width: 20rem;">
                     <div class="card-header border-info bg-info text-white"> <strong>Prueba Vocacional</strong></div>
@@ -56,10 +59,48 @@
                         <!-- <h5 class="card-title">Prueba Vocacional</h5> -->
                         <p class="card-text">Esta es una prueba que consta de 98 preguntas, sin límite de tiempo...</p>
                         <div class="d-md-flex justify-content-end">
-                            <button class="btn btn-info" onclick="comenzarPrueba(0)">Comenzar</button>
+                            <!-- <button class="btn btn-info" onclick="comenzarPrueba(0)">Comenzar</button> -->
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+                                Iniciar
+                            </button>
                         </div>
                     </div>
                 </div>
+
+                <!-- Ventana Modal de Instrucciones -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Instrucciones</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <ul>1. Lee las preguntas detenidamente, selecciona sí o no, según sea tu respuesta.</ul>
+                                <ul>2. Responde todas las preguntas.</ul>
+                                <ul> 3. Para contestar cada pregunta, piensa en el tipo de profesión o en la actitud que implica.</ul>
+                                <ul>4. Tomate tu tiempo, recuerda que no hay respuestas correctas y no hay límite de tiempo.</ul>
+                                <ul></ul>
+                                <ul>¡A comenzar!</ul>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-3 mx-auto" novalidate>
+                                <input type="checkbox" class="custom-control-input" id="checkboxDataPersonal" required>
+                                <label class="custom-control-label" for="checkboxDataPersonal">Acepto los términos y condiciones.</label>
+                                <div class="invalid-feedback">Example invalid feedback text</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-info" onclick="comenzarPrueba(0)"
+                                    data-dismiss="modal" id="btnCheckbox" disabled>Comenzar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="card mb-3 border-dark shadow" style="max-width: 20rem;">
                     <div class="card-header border-danger bg-danger text-white"> <strong>Prueba 2</strong></div>
                     <div class="card-body">
@@ -83,34 +124,6 @@
             </div>
             <!-- Agregar más pruebas aquí... -->
         </div>
-
-        <!-- Modal de Instrucciones -->
-        <div class="modal fade" id="modalInstrucciones" tabindex="-1" role="dialog"
-            aria-labelledby="modalInstruccionesLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalInstruccionesLabel">Instrucciones de la Prueba</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Aquí van las instrucciones de la prueba.</p>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="validarCheck">
-                            <label class="form-check-label" for="validarCheck">He leído y entendido las
-                                instrucciones</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="iniciarPrueba()" id="btnIniciar"
-                            disabled>Iniciar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         <!-- Vista de la prueba -->
         <div id="prueba" style="display: none;">
@@ -146,7 +159,9 @@
                             <!-- Agregar barra de progreso -->
                             <div class="progress w-25" role="progressbar" aria-valuenow="0" aria-valuemin="0"
                                 aria-valuemax="100">
-                                <div id="barraProgreso" class="progress-bar bg-info" style="width: 0"></div>
+                                <div id="barraProgreso"
+                                    class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+                                    style="width: 0"></div>
                             </div>
 
                             <button class="btn btn-info" onclick="siguientePregunta()" id="btnSiguiente">
@@ -159,10 +174,8 @@
             </div>
         </div>
 
-
-
         <!-- Vista de resultados -->
-        <div id="resultados" class="card" style="display: none;">
+        <div id="resultados" class="card border-dark shadow" style="display: none;">
             <div class="card-body">
                 <h3>Resultados:</h3>
                 <p>Nombre: <span id="nombreResultado"></span></p>
@@ -176,18 +189,22 @@
 
     <div class="bg-dark text-center text-white" style="bottom: 0; position: absolute; width: 100%;">
         <div class="text-center " style="background-color: #990099;">
-            <small>© 2020 Copyright:</small>
+            <small>© 2023 Copyright:</small>
             <a class="text-white text-decoration-none" href="http://grupokreativo.com.co/" target="_blank"> <small>Grupo
                     Kreativo</small></a>
         </div>
     </div>
 
+    <!-- Agregar el banco de preguntas -->
     <script src="/questions.js"></script>
+
+    <!-- Agregar las funcionalidades -->
     <script src="/index.js"></script>
 
     <!-- Agregar el enlace a Bootstrap y el script de JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> -->
 </body>
 
 </html>

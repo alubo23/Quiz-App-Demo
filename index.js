@@ -16,7 +16,21 @@ function mostrarPruebas() {
     } else {
         alert("Ingresa tu nombre antes de seleccionar una prueba.");
     }
+    document.getElementById("nombreUser").textContent = nombreUsuario;
 }
+
+
+const checkbox = document.getElementById('checkboxDataPersonal');
+const btn = document.getElementById('btnCheckbox');
+
+checkbox.addEventListener('change', function() {
+    if (checkbox.checked) {
+        btn.removeAttribute('disabled');
+    }else{
+        btn.setAttribute('disabled', 'true');
+    }
+});
+
 
 function comenzarPrueba(pruebaIndex) {
     pruebaActual = pruebaIndex;
@@ -142,10 +156,25 @@ function mostrarResultados() {
     let textoEspecifico = "";
     switch (areaInteresAptitudes) {
         case "Administrativo":
-            textoEspecifico = "Texto específico para el área de interés 1 y aptitudes.";
+            textoEspecifico = "Carreras Administrativas";
             break;
         case "Humanidades":
-            textoEspecifico = "Texto específico para el área de interés 2 y aptitudes.";
+            textoEspecifico = "Carreras Humanidades";
+            break;
+        case "Artística":
+            textoEspecifico = "Carreras Artística";
+            break;
+        case "Medicina y Ciencias de la Salud":
+            textoEspecifico = "Carreras Medicina y Ciencias de la Salud";
+            break;
+        case "Ingeniería y Computación":
+            textoEspecifico = "Carreras de Ingeniería y computación";
+            break;
+        case "Defensa y Seguridad":
+            textoEspecifico = "Carreras de defensa y seguridad";
+            break;
+        case "Ciencias Exactas y Agrarias":
+            textoEspecifico = "Carreras de ciencias exactas y agrarias";
             break;
         // Agregar más casos según las áreas de interés...
         default:
