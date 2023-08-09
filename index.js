@@ -141,46 +141,61 @@ function mostrarResultados() {
         }
     }
     document.getElementById("areaInteresMayor").textContent = areaInteresMayor;
-    // Calcular el área de interés con mayor puntaje y aptitudes
-    let areaInteresAptitudes = "";
-    for (const pregunta of pruebas[pruebaActual].preguntas) {
-        const respuesta = respuestas[pregunta.id - 1];
-        if (respuesta === 1 && pregunta.aptitudes && pregunta.areaInteres !== areaInteresAptitudes) {
-            areaInteresAptitudes = pregunta.areaInteres;
-            break;
-        }
-    }
-    document.getElementById("areaInteresAptitudes").textContent = areaInteresAptitudes;
 
-    // Agregar un texto específico según el área de interés con mayor puntaje y aptitudes
+    // -----------------------------------------------------------------------------------------------------------
+    // Calcular el área de interés con mayor puntaje y aptitudes
+    // let areaInteresAptitudes = "";
+    // for (const pregunta of pruebas[pruebaActual].preguntas) {
+    //     const respuesta = respuestas[pregunta.id - 1];
+    //     if (respuesta === 1 && pregunta.aptitudes && pregunta.areaInteres !== areaInteresAptitudes) {
+    //         areaInteresAptitudes = pregunta.areaInteres;
+    //         break;
+    //     }
+    // }
+    // document.getElementById("areaInteresAptitudes").textContent = areaInteresAptitudes;
+        // ----------------------------------------------------------------------------------------------------
+
+
+
+    // Agregar texto específico donde define las aptitudes acordes al perfil
+    let textoIntro = "";
+    // Agregar un texto específico con las carreras relacionadas según el área de interés con mayor puntaje y aptitudes
     let textoEspecifico = "";
-    switch (areaInteresAptitudes) {
-        case "Administrativo":
-            textoEspecifico = "Carreras Administrativas";
+    switch (areaInteresMayor){
+        case "Administrativas y Contables":
+            textoIntro = "Tus intereses están relacionados con carreras que impliquen organización, supervisión, orden, análisis, síntesis, colaboración y cálculo. Asimismo, tus aptitudes más sobresalientes son: persuasión, objetividad, practicidad, tolerancia y responsabilidad.";
+            textoEspecifico = "Administración de Empresas, Contaduría, Economía, Comercio Internacional, Administración Hotelera y Turismo, Negocios Internacionales, y afines.";
             break;
-        case "Humanidades":
-            textoEspecifico = "Carreras Humanidades";
+        case "Humanísticas y Sociales":
+            textoIntro = "Tus intereses están relacionados con carreras que impliquen precisión verbal, organización, relación de hechos, lingüística, orden y justicia. Asimismo, tus aptitudes más destacadas son: responsabilidad, justicia, persuasión, sagacidad e imaginación.";
+            textoEspecifico = "Sociología, Derecho, Filosofía, Historia, Turismo, Psicología, Recursos Humanos y Relaciones Laborales, Relaciones Públicas, Ciencias Políticas, Educación, Literatura, Idiomas y afines.";
             break;
         case "Artística":
-            textoEspecifico = "Carreras Artística";
+            textoIntro = "Tus intereses están relacionados con carreras que impliquen: facilidad para las manualidades, ubicación en espacios interiores, fluidez y expresión verbal, comunicación visual, diseño, desarrollo auditivo, ambientes armónicos y estéticos. Con relación a tus aptitudes, indica habilidad para dejar volar tu imaginación, ser detallista, innovador, creativo e intuitivo.";
+            textoEspecifico = "Periodismo, Arquitectura, Música, Diseño de modas, Diseño gráfico y afines.";
             break;
         case "Medicina y Ciencias de la Salud":
-            textoEspecifico = "Carreras Medicina y Ciencias de la Salud";
+            textoIntro = "Tus intereses están relacionados con carreras que impliquen asistencia, ayuda, investigación, precisión, percepción y análisis. Con relación a sus aptitudes, indicas habilidad de comprensión, respeto, paciencia, altruismo, persuasión y solidaridad.";
+            textoEspecifico = "Medicina, Veterinaria, Farmacia, Enfermería, Terapia Ocupacional, Nutrición, Odontología, Óptica y Optometría, Kinesiología, Psicología, entre otras.";
             break;
         case "Ingeniería y Computación":
-            textoEspecifico = "Carreras de Ingeniería y computación";
+            textoIntro = "Sus intereses están relacionados a lo científico, lo exacto, lo manual, la planificación y la exactitud. Asimismo, tus aptitudes más destacadas se refieren a lo analítico, preciso, práctico, crítico, metódico, innovador y a la resolución de problemas.";
+            textoEspecifico = "Ingenierías en sus diversas áreas, tecnologías de la información y la comunicación, computación.";
             break;
         case "Defensa y Seguridad":
-            textoEspecifico = "Carreras de defensa y seguridad";
+            textoIntro = "Tus intereses están relacionados con carreras que impliquen justicia, equidad, colaboración, espíritu de equipo y liderazgo. Con relación a tus aptitudes, indicas habilidad de valentía, solidaridad, persuasión y capacidad de asumir riesgos.";
+            textoEspecifico = "Vigilante de seguridad, Bombero, Agente de Policía, Escolta, Detective Privado, Operador de Cámaras de Vigilancia, Oficial y Suboficial de las Fuerzas Armadas entre otras.";
             break;
         case "Ciencias Exactas y Agrarias":
-            textoEspecifico = "Carreras de ciencias exactas y agrarias";
+            textoIntro = "Tus intereses están relacionados con carreras que impliquen organización, investigación, orden, análisis, síntesis y clasificación. Con relación a tus aptitudes, indicas las siguientes: metódico, analítico, observado, introvertido, paciente y seguro."; 
+            textoEspecifico = "Física, Química, Farmacia, Matemática, Bioquímica, Ciencia y Tecnología de los Alimentos, Ciencias Geológicas, Ciencias de la Atmósfera, Ciencias de la Computación, entre otras.";
             break;
         // Agregar más casos según las áreas de interés...
         default:
             textoEspecifico = "No se encontró texto específico para esta área de interés y aptitudes.";
     }
     document.getElementById("textoEspecifico").textContent = textoEspecifico;
+    document.getElementById("textoIntro").textContent = textoIntro
 }
 
 function regresar() {

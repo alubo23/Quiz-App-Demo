@@ -31,7 +31,7 @@
             <div class="card align-middle mx-auto bg-light border-dark shadow" style="width: 700px;">
 
                 <div class="form-group pt-3 px-3">
-                    <label for="nombre">Ingresa tu nombre:</label>
+                    <label for="nombre">Ingresa tu nombre completo:</label>
                     <input type="text" class="form-control border-dark" id="nombre">
                 </div>
                 <div class="d-flex justify-content-end pr-3 pb-3">
@@ -61,7 +61,7 @@
                         <div class="d-md-flex justify-content-end">
                             <!-- <button class="btn btn-info" onclick="comenzarPrueba(0)">Comenzar</button> -->
                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
-                                Iniciar
+                                Comenzar
                             </button>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Instrucciones</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Recomendaciones</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -88,19 +88,19 @@
                             </div>
                             <div class="custom-control custom-checkbox mb-3 mx-auto" novalidate>
                                 <input type="checkbox" class="custom-control-input" id="checkboxDataPersonal" required>
-                                <label class="custom-control-label" for="checkboxDataPersonal">Acepto los términos y condiciones.</label>
+                                <label class="custom-control-label" for="checkboxDataPersonal">Acepto <a href="#">los términos y condiciones.</a></label>
                                 <div class="invalid-feedback">Example invalid feedback text</div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-info" onclick="comenzarPrueba(0)"
-                                    data-dismiss="modal" id="btnCheckbox" disabled>Comenzar</button>
+                                    data-dismiss="modal" id="btnCheckbox" disabled>Iniciar</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-
+                <!-- Pruebas no disponibles -->
                 <div class="card mb-3 border-dark shadow" style="max-width: 20rem;">
                     <div class="card-header border-danger bg-danger text-white"> <strong>Prueba 2</strong></div>
                     <div class="card-body">
@@ -175,13 +175,15 @@
         </div>
 
         <!-- Vista de resultados -->
-        <div id="resultados" class="card border-dark shadow" style="display: none;">
+        <div id="resultados" class="card border-dark shadow mx-auto" style="display: none; max-width: 700px;">
             <div class="card-body">
-                <h3>Resultados:</h3>
-                <p>Nombre: <span id="nombreResultado"></span></p>
-                <p>Área de interés con mayor puntaje: <span id="areaInteresMayor"></span></p>
-                <p>Área de interés con mayor puntaje y aptitudes: <span id="areaInteresAptitudes"></span></p>
-                <p>Texto específico en función del área de interés y aptitudes: <span id="textoEspecifico"></span></p>
+                <h3>Tus resultados</h3>
+                <!-- <p>Nombre: <span id="nombreResultado"></span></p> -->
+                <h5><span id="nombreResultado"></span></h5>
+                <!-- <h4><span id="areaInteresMayor"></span></h4> -->
+                <h6><span id="areaInteresMayor"></span></h6>
+                <p><span id="textoIntro"></span></p>
+                <p>Las carreras afines a tus intereses y aptitudes están relacionadas a <span id="textoEspecifico"></span></p>
                 <button class="btn btn-info" onclick="regresarAlInicio()">Regresar</button>
             </div>
         </div>
